@@ -151,7 +151,7 @@ const HomeScreen = ({navigation}) => {
     // </View>
     <View style={styles.container}>
       <View style={styles.modalView}>
-        <ScrollView style={styles.modalItemScroll}>
+        <ScrollView style={styles.modalItemScroll} showsVerticalScrollIndicator={false}>
           <View style={styles.modalItem}>
             <TouchableOpacity
               activeOpacity={0.8}
@@ -219,7 +219,7 @@ const HomeScreen = ({navigation}) => {
               <Image
                 source={require('../../../assets/otobus.png')}
                 style={styles.btnImage}></Image>
-                <Text style={styles.TextView}>Otobus</Text>
+                <Text style={styles.TextView}>Servis</Text>
             </TouchableOpacity>
           <TouchableOpacity
               activeOpacity={0.8}
