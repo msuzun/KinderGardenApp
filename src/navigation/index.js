@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import SignInScreen from '../Screens/SignInScreen/SignInScreen';
@@ -35,157 +35,171 @@ const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+const DrawerNavigation = () => {
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen
+        name="Main"
+        component={HomeScreen}
+        options={{drawerLabel: () => <Text>Anasayfa</Text>, title: () => null}}
+      />
+      <Drawer.Screen name="Mesajlar" component={MessageScreen} />
+    </Drawer.Navigator>
+  );
+};
+
 const HomeStackNavigation = () => {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Drawer"
+        component={DrawerNavigation}
         options={{headerShown: false}}
       />
+
       <HomeStack.Screen
         name="Gallery"
         component={Gallery}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,
-          headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="Video"
         component={Video}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="Activity"
         component={Activity}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="Food"
         component={Food}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="Medicion"
         component={Medicion}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,
-          headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="Attendance"
         component={Attendance}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,
-          headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="Otobus"
         component={Otobus}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,
-          headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="HomeWork"
         component={HomeWork}
-        options={({route})=>({
-          headerShown:true,
-          title:route.params.name,
-          headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         })}
       />
       <HomeStack.Screen
         name="Reminding"
         component={Reminding}
-        options=
-        {({route})=>
-        ({
-          headerShown:true,
-          title:route.params.name,
-          headerStyle:{
-            backgroundColor:'#f4511e',
+        options={({route}) => ({
+          headerShown: true,
+          title: route.params.name,
+          headerStyle: {
+            backgroundColor: '#f4511e',
           },
-          headerTintColor:'#fff',
-          headerTitleStyle:{
-            fontWeight:'bold',
-            fontSize:25,
-          }
-        })
-      }
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
+        })}
       />
     </HomeStack.Navigator>
   );
@@ -259,12 +273,10 @@ const index = () => {
   }, []);
   if (signedIn == true) {
     return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-        <Drawer.Screen name='Main' component={TabNavigation} options={{drawerLabel:()=><Text>Anasayfa</Text>,title:()=>null}} />
-        <Drawer.Screen name='Mesajlar' component={MessageScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>);
+      <NavigationContainer>
+        <TabNavigation />
+      </NavigationContainer>
+    );
 
     // return <TabNavigation />;
   } else {
