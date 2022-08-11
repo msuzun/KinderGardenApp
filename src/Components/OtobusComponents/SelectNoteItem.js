@@ -2,12 +2,12 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 
-const SelectSelectItem = () => {
+const SelectNoteItem = () => {
     return (
         <View style={{ width: "100%", height: 155, borderBottomWidth: 1 }}>
             <View style={{ flex: 5 }}>
                     <Text>
-                    NOTE Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    otobğüs Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
                       took a galley of type and scrambled it to make a type specimen book. It has survived not only five
                        centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
@@ -28,4 +28,4 @@ const SelectSelectItem = () => {
     );
 }
 
-export default SelectSelectItem;
+export default SelectNoteItem;

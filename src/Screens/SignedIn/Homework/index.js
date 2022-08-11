@@ -1,7 +1,6 @@
 import { SafeAreaView, StyleSheet, Text,TextInput, Touchable, TouchableOpacity, View} from 'react-native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import TopBar from '../../../Components/HomeWorkComponents/TopBar';
 import CustomInput from "../../../Components/CustomInput/CustomInput";
 import { useDispatch, useSelector } from "react-redux";
 import { openStudentModal } from '../../../redux/action/studentSelectModalAction';
@@ -50,7 +49,6 @@ const HomeWork = () => {
           </View>
         </View>
       </View>
-      <TopBar />
     </View>
   )
 }
