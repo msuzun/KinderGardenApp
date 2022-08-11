@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 
-const SelectSelectItem = () => {
+const SelectNoteItem = () => {
     return (
         <View style={{ width: "100%", height: 155, borderBottomWidth: 1 }}>
             <View style={{ flex: 5 }}>
@@ -28,4 +28,4 @@ const SelectSelectItem = () => {
     );
 }
 
-export default SelectSelectItem;
+export default SelectNoteItem;
