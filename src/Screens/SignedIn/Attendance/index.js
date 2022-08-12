@@ -1,42 +1,111 @@
-import {StyleSheet, Text, View, FlatList, Image, Animated} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  Animated,
+  TouchableOpacity,
+  Alert,
+  TextInput,
+} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+
 const Attendance = () => {
-  function PressYes() {
-    console.warn('Yes');
-  }
-  function PressNo() {
-    console.warn('No');
-  }
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [trueData, setTrueData] = useState([]);
+  const [trueData2, setTrueData2] = useState([]);
   const scrollY = useRef(new Animated.Value(0)).current;
   const getApi = () => {
-    fetch('http://192.168.1.36:3000/user')
+    fetch('http://192.168.1.36/UserList.php')
       .then(response => response.json())
       .then(responJson => setData(responJson), setIsLoading(false));
   };
   useEffect(() => {
     getApi();
   }, []);
-
+  const onShowItemSelected = () => {
+    const listSelected1 = data.filter(
+      item => item.selected == true && item.deger == 'button1',
+    );
+    let contentAlert1 = '';
+    listSelected1.forEach(item => {
+      contentAlert1 = contentAlert1 + `${item.id} . ` + item.name + '\n';
+    });
+    const listSelected2 = data.filter(
+      item => item.selected == true && item.deger == 'button2',
+    );
+    let contentAlert2 = '';
+    listSelected2.forEach(item => {
+      contentAlert2 = contentAlert2 + `${item.id} . ` + item.name + '\n';
+    });
+    setTrueData(contentAlert1);
+    setTrueData2(contentAlert2);
+  };
+  const InsertDataToServer = () => {
+    const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
+    listSelected3.forEach(item => {
+      fetch('http://192.168.1.36/AttendanceSave.php', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id:item.id,
+          name: item.name,
+          lastname: item.lastname,
+          school: item.school,
+          status: item.status,
+        }),
+      })
+        .then(response => response.json())
+        .then(responseJson => {})
+        .catch(error=>{});
+    });
+    UpdateDataToServer();
+  };
+  const UpdateDataToServer = () => {
+    const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
+    listSelected3.forEach(item => {
+      fetch('http://192.168.1.36/AttendanceUpdate.php', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id:item.id,
+          name: item.name,
+          lastname: item.lastname,
+          school: item.school,
+          status: item.status,
+        }),
+      })
+        .then(response => response.json())
+        .then(responseJson => {})
+        .catch(error=>{});
+    });
+  };
   const renderItem = ({item, index}) => {
     const onClickItem = deger => {
       const newArrData = data.map(e => {
-        // newArrData = [...newArrData]
         if (item.id === e.id) {
           if (deger === 'button1') {
             return {
               ...e,
               selected: true,
               deger: 'button1',
+              status: "1",
             };
           } else if (deger === 'button2') {
             return {
               ...e,
               selected: true,
               deger: 'button2',
+              status: "0",
             };
           }
         } else {
@@ -63,7 +132,7 @@ const Attendance = () => {
 
           <TouchableOpacity
             style={{
-              left:10,
+              left: 10,
               backgroundColor:
                 item.selected && item.deger === 'button2' ? 'red' : '#d3d3d3',
               borderRadius: 20,
@@ -74,6 +143,7 @@ const Attendance = () => {
         </>
       );
     };
+
     return (
       <View
         style={{
@@ -125,6 +195,36 @@ const Attendance = () => {
         contentContainerStyle={{padding: 20}}
         renderItem={renderItem}
       />
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        {/* <TouchableOpacity
+          onPress={onShowItemSelected}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '80%',
+            height: 60,
+            backgroundColor: 'yellow',
+            borderRadius: 25,
+            marginBottom: 15,
+          }}>
+          <Text style={{color: 'red', fontWeight: '900'}}>Göster</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={InsertDataToServer}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '80%',
+            height: 60,
+            backgroundColor: 'yellow',
+            borderRadius: 25,
+            marginBottom: 15,
+          }}>
+          <Text style={{color: 'red', fontWeight: '900'}}>Kaydet</Text>
+        </TouchableOpacity>
+        {/* <TextInput value={'Var ' + trueData} />
+        <TextInput value={'Yok ' + trueData2} /> */}
+      </View>
     </View>
   );
 };

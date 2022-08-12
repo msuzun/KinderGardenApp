@@ -1,32 +1,80 @@
-import {StyleSheet, Text, View, FlatList, Image, Animated,TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  Animated,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
 import SelectList from 'react-native-dropdown-select-list';
 import SelectDropdown from 'react-native-select-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
 
 const Food = () => {
-  function PressSmile() {
-    console.warn('Smile');
-  }
-  function PressSad() {
-    console.warn('Sad');
-  }
-  function PressMeh() {
-    console.warn('Meh');
-  }
   const [selected, setSelected] = React.useState('');
   const Selectdata = ['Sabah', 'İkindi'];
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const scrollY = useRef(new Animated.Value(0)).current;
   const getApi = () => {
-    fetch('http://192.168.1.36:3000/user')
+    fetch('http://192.168.1.36/UserList.php')
       .then(response => response.json())
       .then(responJson => setData(responJson), setIsLoading(false));
   };
   useEffect(() => {
     getApi();
   }, []);
+  const InsertDataToServer = () => {
+    const listSelected3 = data.filter(
+      item => item.status == 'çok' || item.status == 'orta' || item.status=='az',
+    );
+    listSelected3.forEach(item => {
+      fetch('http://192.168.1.36/FoodSave.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: item.id,
+          name: item.name,
+          lastname: item.lastname,
+          school: item.school,
+          status: item.status,
+        }),
+      })
+        .then(response => response.json())
+        .then(responseJson => {})
+        .catch(error => {});
+    });
+    UpdateDataToServer();
+  };
+  const UpdateDataToServer = () => {
+    const listSelected3 = data.filter(
+      item => item.status == 'çok' || item.status == 'orta' || item.status=='az',
+    );
+    listSelected3.forEach(item => {
+      fetch('http://192.168.1.36/FoodUpdate.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: item.id,
+          name: item.name,
+          lastname: item.lastname,
+          school: item.school,
+          status: item.status,
+        }),
+      })
+        .then(response => response.json())
+        .then(responseJson => {})
+        .catch(error => {});
+    });
+  };
   const renderItem = ({item, index}) => {
     const onClickItem = deger => {
       const newArrData = data.map(e => {
@@ -36,23 +84,24 @@ const Food = () => {
               ...e,
               selected: true,
               deger: 'button1',
+              status: 'çok',
             };
           } else if (deger === 'button2') {
             return {
               ...e,
               selected: true,
               deger: 'button2',
+              status: 'orta',
             };
-          }
-          else if (deger === 'button3') {
+          } else if (deger === 'button3') {
             return {
               ...e,
               selected: true,
               deger: 'button3',
+              status: 'az',
             };
           }
-        }
-         else {
+        } else {
           return {
             ...e,
           };
@@ -66,7 +115,9 @@ const Food = () => {
           <TouchableOpacity
             style={{
               backgroundColor:
-                item.selected && item.deger === 'button1' ? 'green' : '#d3d3d3',
+                item.selected && item.deger === 'button1'
+                  ? '#68F3A0'
+                  : '#d3d3d3',
               borderRadius: 20,
               marginStart: 15,
             }}
@@ -78,7 +129,9 @@ const Food = () => {
             style={{
               left: 5,
               backgroundColor:
-                item.selected && item.deger === 'button2' ? 'yellow' : '#d3d3d3',
+                item.selected && item.deger === 'button2'
+                  ? 'yellow'
+                  : '#d3d3d3',
               borderRadius: 20,
             }}
             onPress={() => onClickItem('button2')}>
@@ -164,6 +217,21 @@ const Food = () => {
         contentContainerStyle={{padding: 20}}
         renderItem={renderItem}
       />
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity
+          onPress={InsertDataToServer}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '80%',
+            height: 60,
+            backgroundColor: 'yellow',
+            borderRadius: 25,
+            marginBottom: 15,
+          }}>
+          <Text style={{color: 'red', fontWeight: '900'}}>Kaydet</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
