@@ -26,24 +26,24 @@ const Attendance = () => {
   useEffect(() => {
     getApi();
   }, []);
-  const onShowItemSelected = () => {
-    const listSelected1 = data.filter(
-      item => item.selected == true && item.deger == 'button1',
-    );
-    let contentAlert1 = '';
-    listSelected1.forEach(item => {
-      contentAlert1 = contentAlert1 + `${item.id} . ` + item.name + '\n';
-    });
-    const listSelected2 = data.filter(
-      item => item.selected == true && item.deger == 'button2',
-    );
-    let contentAlert2 = '';
-    listSelected2.forEach(item => {
-      contentAlert2 = contentAlert2 + `${item.id} . ` + item.name + '\n';
-    });
-    setTrueData(contentAlert1);
-    setTrueData2(contentAlert2);
-  };
+  // const onShowItemSelected = () => {
+  //   const listSelected1 = data.filter(
+  //     item => item.selected == true && item.deger == 'button1',
+  //   );
+  //   let contentAlert1 = '';
+  //   listSelected1.forEach(item => {
+  //     contentAlert1 = contentAlert1 + `${item.id} . ` + item.name + '\n';
+  //   });
+  //   const listSelected2 = data.filter(
+  //     item => item.selected == true && item.deger == 'button2',
+  //   );
+  //   let contentAlert2 = '';
+  //   listSelected2.forEach(item => {
+  //     contentAlert2 = contentAlert2 + `${item.id} . ` + item.name + '\n';
+  //   });
+  //   setTrueData(contentAlert1);
+  //   setTrueData2(contentAlert2);
+  // };
   const InsertDataToServer = () => {
     const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
     listSelected3.forEach(item => {
