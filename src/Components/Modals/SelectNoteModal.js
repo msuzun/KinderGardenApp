@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { closeNoteModal } from '../../redux/action/selectNoteModalAction';
-import SelectNoteItem from "./SelectNoteItem";
+import {addSelectedNote} from "../../redux/action/noteActions";
 
 import {
     Alert,
@@ -17,12 +17,41 @@ import {
     useColorScheme,
     View,
     TouchableOpacity,
-    Image
+    Image,
+    FlatList,
+    LogBox
 } from 'react-native';
 
 const SelectNoteModal = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
+    const [data, setData] = useState([]);
+
+    const studentsURL = "https://dummyjson.com/posts"; 
+    useEffect(() => {
+        fetch(studentsURL)
+          .then((response) => response.json())
+          .then((json) => {
+            setData(json.posts);
+          })
+          .catch((error) => alert(error));
+      }, []);
+
+      //ANLAMSIZ HATAYI GİZLİYOR->
+      useEffect(() => {
+        LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
+      }, [])
+
+
+    function selectedNote(note){
+        dispatch(addSelectedNote(note));
+        alert("SelectNoteModal.js/selectedNote(id)\n\nHazır mesajınız seçildi.");
+        dispatch(closeNoteModal());
+    }
+    function deleteNote(id) {
+        alert("SelectNoteModal.js/deleteNote(id)\n\nBu id numaralı hazır not silinecek = "+id);
+    }
+
     return (
         <Modal
             animationType="slide"
@@ -46,11 +75,27 @@ const SelectNoteModal = () => {
                         </View>
                     </View>
                     <ScrollView style={{ width: "100%" }}>
-                        <SelectNoteItem/>
-                        <SelectNoteItem/>
-                        <SelectNoteItem/>
-                        <SelectNoteItem/>
-                        <SelectNoteItem/>
+                        <FlatList
+                            data={data}
+                            keyExtractor={({ id }, index) => id}
+                            renderItem={({ item }) => (
+                                <View style={{ width: "100%", height: 155, borderBottomWidth: 1 }}>
+                     <View style={{ flex: 5 }}>
+                          <Text>
+                           {item.body}
+                               </Text>
+                          </View>
+                             <View style={{ flexDirection: "row", flex: 2, margin: 2 }}>
+                        <TouchableOpacity style={{ backgroundColor: "green", width: 60, justifyContent: 'center', alignItems: "center", borderRadius: 50 }}>
+                              <Text onPress={()=>selectedNote(item.body)} style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>Seç</Text>
+                           </TouchableOpacity>
+                           <TouchableOpacity onPress={()=>deleteNote(item.id)} style={{ marginLeft: 10, backgroundColor: "red", width: 60, justifyContent: 'center', alignItems: "center", borderRadius: 50 }}>
+                               <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>Sil</Text>
+                           </TouchableOpacity>
+                             </View>
+                              </View>
+                            )}
+                        />
                     </ScrollView>
                 </View>
 

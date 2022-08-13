@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeStudentModal } from '../../redux/action/studentSelectModalAction';
-import StudentSelectItem from "./StudentSelectItem";
+import { addSelectedStudents } from "../../redux/action/selectedStudentActions";
 
 import {
     Alert,
@@ -78,6 +78,10 @@ const StudentSelectModal = () => {
         }
         return false;
     }
+    function closeModal(){
+        dispatch(closeStudentModal());
+        dispatch(addSelectedStudents(selectedStudent));
+    }
 
     return (
         <Modal
@@ -89,14 +93,14 @@ const StudentSelectModal = () => {
                 <View style={styles.modalView}>
                     <View style={{ justifyContent: 'center', flexDirection: 'row', borderBottomWidth: 1, backgroundColor: "#646b7a", height: 40, width: "100%" }}>
                         <View style={{ flex: 1, justifyContent: "center" }}>
-                            <Text style={{ color: "white", fontWeight: "bold", fontSize: 20, marginLeft: 10 }}>Öğrenci Seç{selectedStudent}{/*Buradaki state silinecek*/}</Text>
+                            <Text style={{ color: "white", fontWeight: "bold", fontSize: 20, marginLeft: 10 }}>Öğrenci Seç</Text>
                         </View>
                         <View style={{ flex: 1, justifyContent: "center" }}>
                             <TouchableOpacity style={{
                                 alignSelf: "flex-end", backgroundColor: "white",
                                 borderRadius: 50, height: 35, width: 35,
                                 justifyContent: "center"
-                            }} onPress={() => dispatch(closeStudentModal())}>
+                            }} onPress={() => closeModal()}>
                                 <Icon style={{ alignSelf: "center" }} name="close" size={28} color="black" />
                             </TouchableOpacity>
                         </View>

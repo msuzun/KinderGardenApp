@@ -35,11 +35,13 @@ const deneme = [
       }
     }];
 
+
 const studentReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case "GET_ALL_STUDENTS":
-            return deneme1;
-            break;
+      case "GET_ALL_STUDENTS":
+         return deneme1;
+          break;
+        
         default:
             return state;
             break;
