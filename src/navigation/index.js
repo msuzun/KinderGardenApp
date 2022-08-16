@@ -13,20 +13,20 @@ import ConfirmEmailScreen from '../Screens/ConfirmEmailScreen/ConfirmEmailScreen
 import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen/ForgotPasswordScreen';
 import NewPasswordScreen from '../Screens/NewPasswordScreen/NewPasswordScreen';
 
-import HomeScreen from '../Screens/SignedIn/HomeScreen';
-import CalendarScreen from '../Screens/SignedIn/CalendarScreen';
-import NotificationScreen from '../Screens/SignedIn/NotificationScreen';
-import ProfileScreen from '../Screens/SignedIn/ProfileScreen';
-import Gallery from '../Screens/SignedIn/Gallery';
-import Video from '../Screens/SignedIn/Video';
-import Activity from '../Screens/SignedIn/Activity';
-import Food from '../Screens/SignedIn/Food';
-import Medicion from '../Screens/SignedIn/Medicion';
-import Attendance from '../Screens/SignedIn/Attendance';
-import Otobus from '../Screens/SignedIn/Otobus';
-import HomeWork from '../Screens/SignedIn/Homework';
-import Reminding from '../Screens/SignedIn/reminding';
-import MessageScreen from '../Screens/SignedIn/MessageScreen';
+import HomeScreen from '../Screens/SignedIn/Areas/Teacher/HomeScreen';
+import CalendarScreen from '../Screens/SignedIn/Areas/Teacher/CalendarScreen';
+import NotificationScreen from '../Screens/SignedIn/Areas/Teacher/NotificationScreen';
+import ProfileScreen from '../Screens/SignedIn/Areas/Teacher/ProfileScreen';
+import Gallery from '../Screens/SignedIn/Areas/Teacher/Gallery';
+import Video from '../Screens/SignedIn/Areas/Teacher/Video';
+import Activity from '../Screens/SignedIn/Areas/Parent/Activity';
+import Food from '../Screens/SignedIn/Areas/Teacher/Food';
+import Medicion from '../Screens/SignedIn/Areas/Teacher/Medicion';
+import Attendance from '../Screens/SignedIn/Areas/Teacher/Attendance';
+import Otobus from '../Screens/SignedIn/Areas/Parent/Otobus';
+import HomeWork from '../Screens/SignedIn/Areas/Parent/Homework';
+import Reminding from '../Screens/SignedIn/Areas/Parent/reminding';
+import MessageScreen from '../Screens/SignedIn/Areas/Teacher/MessageScreen';
 
 import auth from '@react-native-firebase/auth';
 
