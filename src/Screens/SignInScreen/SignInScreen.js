@@ -5,61 +5,59 @@ import {
   Image,
   useWindowDimensions,
   ScrollView,
+  Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import logo from '../../assets/akridalogo.png';
-import FormError from '../../Components/FormError/FormError';
-import FormSuccess from '../../Components/FormSuccess/FormSuccess';
+
 
 import CustomButton from '../../Components/CustomButton/CustomButton';
 import CustomInput from '../../Components/CustomInput/CustomInput';
-import SocialMediaButtons from '../../Components/SocialMediaButtons/SocialMediaButton';
-import {useNavigation} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
-const SignInScreen = ({navigation}) => {
-  // const [username, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState();
-  const {height} = useWindowDimensions();
-  const [errorMessage, seterrorMessage] = useState();
-  const [displayFormErr, setDisplayFormErr] = useState(false);
-  const [loading, setIsLoading] = useState(false);
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const Login = ({navigation}) => {
   function EmailChange(value) {
     setEmail(value);
   }
   function PasswordConfirmChange(value) {
     setPasswordConfirm(value);
   }
-  const validateInput = () => {
-    var form_inputs = [email, passwordConfirm];
-    if (form_inputs.includes('') || form_inputs.includes(undefined)) {
-      return (
-        setDisplayFormErr(true), seterrorMessage('Please fill in all fields')
-      );
-    }
-    setIsLoading(true);
-    auth()
-      .signInWithEmailAndPassword(email, passwordConfirm)
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(err => {
-        return (
-          setDisplayFormErr(true),
-          seterrorMessage(err.message),
-          setIsLoading(false)
-        );
+  const [email, setEmail] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState();
+  const {height} = useWindowDimensions();
+  useEffect(() => {
+    getData();
+  }, []);
+  const getData = () => {
+    try {
+      AsyncStorage.getItem('UserData').then(value => {
+        if (value != null) {
+          navigation.navigate('Home');
+        }
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
-  const onForgotPassword = () => {
-    console.warn('Forgot Password');
-    navigation.navigate('ForgotPasswordScreen');
-  };
-
-  const onSingUpPress = () => {
-    console.warn('Sign Up');
-    navigation.navigate('SignUpScreen');
+  const setData = async () => {
+    if (email.length == 0 || passwordConfirm.length == 0) {
+      Alert.alert('Warning!', 'Boş bırakılamaz');
+    } else if (email !== 'admin' || passwordConfirm !== '12345') {
+      Alert.alert('Warning!', 'Böyle bir kullanıcı yok');
+    } else {
+      try {
+        var user = {
+          name: 'Sevki',
+          lastname: 'Uzun',
+          Email: "sevki.meu@gmail.com",
+          Tel: "12345"
+        };
+        await AsyncStorage.setItem('UserData', JSON.stringify(user));
+        navigation.navigate('Home')
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -82,34 +80,14 @@ const SignInScreen = ({navigation}) => {
           secureTextEntry={true}
         />
 
-        <CustomButton text="Sign In" onPress={validateInput} />
-        <CustomButton
-          text="Forgot Password"
-          onPress={onForgotPassword}
-          type="TERTIARY"
-        />
-
-        <SocialMediaButtons />
-
-        <CustomButton
-          text="Don't have an account? Create One"
-          onPress={onSingUpPress}
-          type="TERTIARY"
-        />
+        <CustomButton text="Sign In" onPress={setData} />
+        <CustomButton text="Forgot Password" type="TERTIARY" />
       </View>
-      {displayFormErr == true ? (
-        <FormError hideErrOverlay={setDisplayFormErr} err={errorMessage} />
-      ) : null}
-      {loading == true ?
-        <FormSuccess />
-        :
-        null
-      }
     </ScrollView>
   );
 };
 
-export default SignInScreen;
+export default Login;
 
 const styles = StyleSheet.create({
   root: {

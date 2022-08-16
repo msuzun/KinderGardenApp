@@ -5,30 +5,24 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignInScreen from '../Screens/SignInScreen/SignInScreen';
-import SignUpScreen from '../Screens/SignUpScreen/SignUpScreen';
 
-import ConfirmEmailScreen from '../Screens/ConfirmEmailScreen/ConfirmEmailScreen';
-import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen/ForgotPasswordScreen';
-import NewPasswordScreen from '../Screens/NewPasswordScreen/NewPasswordScreen';
+import HomeScreen from '../Screens/SignedIn/Areas/Admin/HomeScreen';
+import CalendarScreen from '../Screens/SignedIn/Areas/Admin/CalendarScreen';
+import NotificationScreen from '../Screens/SignedIn/Areas/Admin/NotificationScreen';
+import ProfileScreen from '../Screens/SignedIn/Areas/Admin/ProfileScreen';
+import Gallery from '../Screens/SignedIn/Areas/Admin/Gallery';
+import Video from '../Screens/SignedIn/Areas/Admin/Video';
+import Activity from '../Screens/SignedIn/Areas/Admin/Activity';
+import Food from '../Screens/SignedIn/Areas/Admin/Food';
+import Medicion from '../Screens/SignedIn/Areas/Admin/Medicion';
+import Attendance from '../Screens/SignedIn/Areas/Admin/Attendance';
+import Otobus from '../Screens/SignedIn/Areas/Admin/Otobus';
+import HomeWork from '../Screens/SignedIn/Areas/Admin/Homework';
+import Reminding from '../Screens/SignedIn/Areas/Admin/reminding';
+import MessageScreen from '../Screens/SignedIn/Areas/Admin/MessageScreen';
 
-import HomeScreen from '../Screens/SignedIn/HomeScreen';
-import CalendarScreen from '../Screens/SignedIn/CalendarScreen';
-import NotificationScreen from '../Screens/SignedIn/NotificationScreen';
-import ProfileScreen from '../Screens/SignedIn/ProfileScreen';
-import Gallery from '../Screens/SignedIn/Gallery';
-import Video from '../Screens/SignedIn/Video';
-import Activity from '../Screens/SignedIn/Activity';
-import Food from '../Screens/SignedIn/Food';
-import Medicion from '../Screens/SignedIn/Medicion';
-import Attendance from '../Screens/SignedIn/Attendance';
-import Otobus from '../Screens/SignedIn/Otobus';
-import HomeWork from '../Screens/SignedIn/Homework';
-import Reminding from '../Screens/SignedIn/reminding';
-import MessageScreen from '../Screens/SignedIn/MessageScreen';
-
-import auth from '@react-native-firebase/auth';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -252,8 +246,8 @@ const StackNavigation = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="SignUpScreen"
-          component={SignUpScreen}
+          name="Home"
+          component={TabNavigation}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
@@ -261,27 +255,43 @@ const StackNavigation = () => {
   );
 };
 const index = () => {
-  const [signedIn, setSignedIn] = useState(false);
-  useEffect(() => {
-    auth().onAuthStateChanged(user => {
-      if (user) {
-        setSignedIn(true);
-      } else {
-        setSignedIn(false);
-      }
-    });
+   const [signedIn, setSignedIn] = useState(false);
+   useEffect(() => {
+    getData();
   }, []);
+  const getData = async () => {
+    try {
+      await AsyncStorage.getItem('UserData').then(value => {
+        if (value != null) {
+          setSignedIn(true)
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // useEffect(() => {
+  //   auth().onAuthStateChanged(user => {
+  //     if (user) {
+  //       setSignedIn(true);
+  //     } else {
+  //       setSignedIn(false);
+  //     }
+  //   });
+  // }, []);
   if (signedIn == true) {
     return (
       <NavigationContainer>
         <TabNavigation />
       </NavigationContainer>
     );
-
+    }
     // return <TabNavigation />;
-  } else {
-    return <StackNavigation />;
-  }
+    else{
+      return (<StackNavigation />);
+    }
+    
+  
 };
 
 export default index;
