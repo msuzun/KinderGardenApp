@@ -209,7 +209,7 @@ const Attendance = () => {
           }}>
           <Text style={{color: 'red', fontWeight: '900'}}>Göster</Text>
         </TouchableOpacity> */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={InsertDataToServer}
           style={{
             alignItems: 'center',
@@ -221,9 +221,7 @@ const Attendance = () => {
             marginBottom: 15,
           }}>
           <Text style={{color: 'red', fontWeight: '900'}}>Kaydet</Text>
-        </TouchableOpacity>
-        {/* <TextInput value={'Var ' + trueData} />
-        <TextInput value={'Yok ' + trueData2} /> */}
+        </TouchableOpacity> */}
       </View>
     </View>
   );

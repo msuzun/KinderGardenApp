@@ -217,8 +217,8 @@ const Food = () => {
         contentContainerStyle={{padding: 20}}
         renderItem={renderItem}
       />
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        <TouchableOpacity
+      {/* <View style={{justifyContent: 'center', alignItems: 'center'}}> */}
+        {/* <TouchableOpacity
           onPress={InsertDataToServer}
           style={{
             alignItems: 'center',
@@ -230,8 +230,8 @@ const Food = () => {
             marginBottom: 15,
           }}>
           <Text style={{color: 'red', fontWeight: '900'}}>Kaydet</Text>
-        </TouchableOpacity>
-      </View>
+        </TouchableOpacity> */}
+      {/* </View> */}
     </View>
   );
 };
