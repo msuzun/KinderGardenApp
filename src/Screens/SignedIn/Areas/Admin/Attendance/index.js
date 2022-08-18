@@ -19,7 +19,7 @@ const Attendance = () => {
   const [trueData2, setTrueData2] = useState([]);
   const scrollY = useRef(new Animated.Value(0)).current;
   const getApi = () => {
-    fetch('http://192.168.1.36/UserList.php')
+    fetch('http://192.168.1.40/akridaUser.php')
       .then(response => response.json())
       .then(responJson => setData(responJson), setIsLoading(false));
   };
@@ -47,7 +47,7 @@ const Attendance = () => {
   const InsertDataToServer = () => {
     const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
     listSelected3.forEach(item => {
-      fetch('http://192.168.1.36/AttendanceSave.php', {
+      fetch('http://192.168.1.40/akridaAttendanceSave.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -59,18 +59,21 @@ const Attendance = () => {
           lastname: item.lastname,
           school: item.school,
           status: item.status,
+          zaman : item.zaman,
         }),
       })
         .then(response => response.json())
         .then(responseJson => {})
         .catch(error=>{});
+        console.warn(item.zaman)
     });
+    
     UpdateDataToServer();
   };
   const UpdateDataToServer = () => {
     const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
     listSelected3.forEach(item => {
-      fetch('http://192.168.1.36/AttendanceUpdate.php', {
+      fetch('http://192.168.1.40/akridaAttendanceUpdate.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -78,10 +81,11 @@ const Attendance = () => {
         },
         body: JSON.stringify({
           id:item.id,
-          name: item.name,
-          lastname: item.lastname,
-          school: item.school,
+          // name: item.name,
+          // lastname: item.lastname,
+          // school: item.school,
           status: item.status,
+          zaman : item.zaman,
         }),
       })
         .then(response => response.json())
@@ -99,6 +103,7 @@ const Attendance = () => {
               selected: true,
               deger: 'button1',
               status: "1",
+              zaman: new Date().toISOString().slice(0, 10),
             };
           } else if (deger === 'button2') {
             return {
@@ -106,6 +111,7 @@ const Attendance = () => {
               selected: true,
               deger: 'button2',
               status: "0",
+              zaman: new Date().toISOString().slice(0, 10),
             };
           }
         } else {
