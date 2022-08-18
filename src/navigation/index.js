@@ -8,20 +8,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SignInScreen from '../Screens/SignInScreen/SignInScreen';
 
-import HomeScreen from '../Screens/SignedIn/Areas/Admin/HomeScreen';
-import CalendarScreen from '../Screens/SignedIn/Areas/Admin/CalendarScreen';
-import NotificationScreen from '../Screens/SignedIn/Areas/Admin/NotificationScreen';
-import ProfileScreen from '../Screens/SignedIn/Areas/Admin/ProfileScreen';
-import Gallery from '../Screens/SignedIn/Areas/Admin/Gallery';
-import Video from '../Screens/SignedIn/Areas/Admin/Video';
-import Activity from '../Screens/SignedIn/Areas/Admin/Activity';
-import Food from '../Screens/SignedIn/Areas/Admin/Food';
-import Medicion from '../Screens/SignedIn/Areas/Admin/Medicion';
-import Attendance from '../Screens/SignedIn/Areas/Admin/Attendance';
-import Otobus from '../Screens/SignedIn/Areas/Admin/Otobus';
-import HomeWork from '../Screens/SignedIn/Areas/Admin/Homework';
-import Reminding from '../Screens/SignedIn/Areas/Admin/reminding';
-import MessageScreen from '../Screens/SignedIn/Areas/Admin/MessageScreen';
+import HomeScreen from '../Screens/SignedIn/Areas/Teacher/HomeScreen';
+import CalendarScreen from '../Screens/SignedIn/Areas/Teacher/CalendarScreen';
+import NotificationScreen from '../Screens/SignedIn/Areas/Teacher/NotificationScreen';
+import ProfileScreen from '../Screens/SignedIn/Areas/Teacher/ProfileScreen';
+import Gallery from '../Screens/SignedIn/Areas/Teacher/Gallery';
+import Video from '../Screens/SignedIn/Areas/Teacher/Video';
+import Activity from '../Screens/SignedIn/Areas/Teacher/Activity';
+import Food from '../Screens/SignedIn/Areas/Teacher/Food';
+import Medicion from '../Screens/SignedIn/Areas/Teacher/Medicion';
+import Attendance from '../Screens/SignedIn/Areas/Teacher/Attendance';
+import Otobus from '../Screens/SignedIn/Areas/Teacher/Otobus';
+import HomeWork from '../Screens/SignedIn/Areas/Teacher/Homework';
+import Reminding from '../Screens/SignedIn/Areas/Teacher/reminding';
+import MessageScreen from '../Screens/SignedIn/Areas/Teacher/MessageScreen';
 
 
 const Stack = createStackNavigator();

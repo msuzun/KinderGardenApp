@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import MultipleImagePicker from '@baronha/react-native-multiple-image-picker';
-
+import { appConfig } from '../../../../../../config';
 
 export default function Gallery() {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +16,7 @@ export default function Gallery() {
   const [images, setImages] = useState([]);
   const scrollY = useRef(new Animated.Value(0)).current;
   const getApi = () => {
-    fetch('http://192.168.1.36/UserList.php')
+    fetch(`${appConfig.apiUrl}UserList.php`)
       .then(response => response.json())
       .then(responJson => setData(responJson), setIsLoading(false));
   };

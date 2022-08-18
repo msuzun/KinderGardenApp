@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeStudentModal } from '../../redux/action/studentSelectModalAction';
 import { addSelectedStudents } from "../../redux/action/selectedStudentActions";
+import {appConfig} from "../../../config";
 
 import {
     Alert,
@@ -27,7 +28,7 @@ const StudentSelectModal = () => {
     const [data, setData] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState([]);
 
-    const studentsURL = "https://jsonplaceholder.typicode.com/users"; 
+    const studentsURL = `${appConfig.fakeApiUrl}`+"users"; 
     useEffect(() => {
         fetch(studentsURL)
           .then((response) => response.json())
