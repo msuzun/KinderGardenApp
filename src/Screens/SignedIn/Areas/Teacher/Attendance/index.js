@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-import { appConfig } from '../../../../../../config';
 
 const Attendance = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +19,7 @@ const Attendance = () => {
   const [trueData2, setTrueData2] = useState([]);
   const scrollY = useRef(new Animated.Value(0)).current;
   const getApi = () => {
-    fetch(`${appConfig.apiUrl}UserList.php`)
+    fetch('http://192.168.1.36/UserList.php')
       .then(response => response.json())
       .then(responJson => setData(responJson), setIsLoading(false));
   };
@@ -48,7 +47,7 @@ const Attendance = () => {
   const InsertDataToServer = () => {
     const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
     listSelected3.forEach(item => {
-      fetch(`${appConfig.apiUrl}AttendanceSave.php`, {
+      fetch('http://192.168.1.36/AttendanceSave.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -71,7 +70,7 @@ const Attendance = () => {
   const UpdateDataToServer = () => {
     const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
     listSelected3.forEach(item => {
-      fetch(`${appConfig.apiUrl}AttendanceUpdate.php`, {
+      fetch('http://192.168.1.36/AttendanceUpdate.php', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

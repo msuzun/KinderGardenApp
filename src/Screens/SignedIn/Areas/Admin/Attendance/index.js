@@ -15,6 +15,7 @@ import Feather from 'react-native-vector-icons/Feather';
 const Attendance = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [dataAttendance, setDataAttendance] = useState([]);
   const [trueData, setTrueData] = useState([]);
   const [trueData2, setTrueData2] = useState([]);
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -23,8 +24,17 @@ const Attendance = () => {
       .then(response => response.json())
       .then(responJson => setData(responJson), setIsLoading(false));
   };
+  const getAttendanceApi = () => {
+    fetch('http://192.168.1.40/akridaAttendanceList.php')
+      .then(response => response.json())
+      .then(responJson => setDataAttendance(responJson));
+  };
+  const Goster = ()=>{
+    console.warn(dataAttendance)
+  }
   useEffect(() => {
     getApi();
+    getAttendanceApi();
   }, []);
   // const onShowItemSelected = () => {
   //   const listSelected1 = data.filter(
@@ -45,55 +55,60 @@ const Attendance = () => {
   //   setTrueData2(contentAlert2);
   // };
   const InsertDataToServer = () => {
-    const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
+    const listSelected3 = data.filter(
+      item => item.status == '1' || item.status == '0',
+    );
     listSelected3.forEach(item => {
       fetch('http://192.168.1.40/akridaAttendanceSave.php', {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id:item.id,
+          id: item.id,
           name: item.name,
           lastname: item.lastname,
           school: item.school,
           status: item.status,
-          zaman : item.zaman,
+          zaman: item.zaman,
         }),
       })
         .then(response => response.json())
         .then(responseJson => {})
-        .catch(error=>{});
-        console.warn(item.zaman)
+        .catch(error => {});
     });
-    
+
     UpdateDataToServer();
   };
   const UpdateDataToServer = () => {
-    const listSelected3 = data.filter(item => item.status == "1" || item.status == "0");
+    const listSelected3 = data.filter(
+      item => item.status == '1' || item.status == '0',
+    );
     listSelected3.forEach(item => {
       fetch('http://192.168.1.40/akridaAttendanceUpdate.php', {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id:item.id,
+          id: item.id,
           // name: item.name,
           // lastname: item.lastname,
           // school: item.school,
           status: item.status,
-          zaman : item.zaman,
+          zaman: item.zaman,
         }),
       })
         .then(response => response.json())
         .then(responseJson => {})
-        .catch(error=>{});
+        .catch(error => {});
     });
   };
-  const renderItem = ({item, index}) => {
+ 
+  
+  const renderItem = ({item, index}) => {    
     const onClickItem = deger => {
       const newArrData = data.map(e => {
         if (item.id === e.id) {
@@ -102,7 +117,7 @@ const Attendance = () => {
               ...e,
               selected: true,
               deger: 'button1',
-              status: "1",
+              status: '1',
               zaman: new Date().toISOString().slice(0, 10),
             };
           } else if (deger === 'button2') {
@@ -110,7 +125,7 @@ const Attendance = () => {
               ...e,
               selected: true,
               deger: 'button2',
-              status: "0",
+              status: '0',
               zaman: new Date().toISOString().slice(0, 10),
             };
           }
@@ -122,13 +137,14 @@ const Attendance = () => {
       });
       setData(newArrData);
     };
-    const ButtonRender = () => {
+    const ButtonRender = () => {  
       return (
         <>
           <TouchableOpacity
             style={{
               backgroundColor:
-                item.selected && item.deger === 'button1' ? 'green' : '#d3d3d3',
+              
+              (dataAttendance.find(x=>x.id==="200")) || (item.selected && item.deger) === 'button1' ? 'green' : '#d3d3d3',
               borderRadius: 20,
               marginStart: 20,
             }}
@@ -200,6 +216,7 @@ const Attendance = () => {
         keyExtractor={item => item.id}
         contentContainerStyle={{padding: 20}}
         renderItem={renderItem}
+        extraData={dataAttendance}
       />
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         {/* <TouchableOpacity
@@ -227,6 +244,19 @@ const Attendance = () => {
             marginBottom: 15,
           }}>
           <Text style={{color: 'red', fontWeight: '900'}}>Kaydet</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={Goster}
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '80%',
+            height: 60,
+            backgroundColor: 'yellow',
+            borderRadius: 25,
+            marginBottom: 15,
+          }}>
+          <Text style={{color: 'red', fontWeight: '900'}}>Goster</Text>
         </TouchableOpacity>
         {/* <TextInput value={'Var ' + trueData} />
         <TextInput value={'Yok ' + trueData2} /> */}

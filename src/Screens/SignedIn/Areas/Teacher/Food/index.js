@@ -11,7 +11,6 @@ import React, {useState, useEffect, useRef} from 'react';
 import SelectList from 'react-native-dropdown-select-list';
 import SelectDropdown from 'react-native-select-dropdown';
 import Feather from 'react-native-vector-icons/Feather';
-import { appConfig } from '../../../../../../config';
 
 const Food = () => {
   const [selected, setSelected] = React.useState('');
@@ -20,7 +19,7 @@ const Food = () => {
   const [data, setData] = useState([]);
   const scrollY = useRef(new Animated.Value(0)).current;
   const getApi = () => {
-    fetch(`${appConfig.apiUrl}UserList.php`)
+    fetch('http://192.168.1.36/UserList.php')
       .then(response => response.json())
       .then(responJson => setData(responJson), setIsLoading(false));
   };
@@ -32,7 +31,7 @@ const Food = () => {
       item => item.status == 'çok' || item.status == 'orta' || item.status=='az',
     );
     listSelected3.forEach(item => {
-      fetch(`${appConfig.apiUrl}FoodSave.php`, {
+      fetch('http://192.168.1.36/FoodSave.php', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -57,7 +56,7 @@ const Food = () => {
       item => item.status == 'çok' || item.status == 'orta' || item.status=='az',
     );
     listSelected3.forEach(item => {
-      fetch(`${appConfig.apiUrl}FoodUpdate.php`, {
+      fetch('http://192.168.1.36/FoodUpdate.php', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
